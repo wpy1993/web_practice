@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>测试DOM堵塞</title>
+    <style>
+      .header {
+        font-size: 80px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="head">
+      <header class="header">这里是标题4</header>
+    </div>
+    <div>
+      <div>这里是content1</div>
+
+      <div>这里是content2</div>
+    </div>
+  </body>
+</html>
+<script defer>
+  const delay = (time) => {
+    const now = Date.now();
+    while (Date.now() <= now + time) {}
+  };
+  window.onload = () => {
+    setTimeout(() => {
+      delay(3000);
+    }, 500);
+  };
+</script>
