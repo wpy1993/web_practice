@@ -1,0 +1,21 @@
+{
+  "name": "web-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "code": "node ./leetcode/chain.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wpy1993/web-practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wpy1993/web-practice/issues"
+  },
+  "homepage": "https://github.com/wpy1993/web-practice#readme"
+}
