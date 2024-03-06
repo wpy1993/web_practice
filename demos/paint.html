@@ -9,6 +9,12 @@
         font-size: 80px;
         color: red;
       }
+      .move {
+        transition: margin-left 4s 0.5s linear;
+      }
+      .move:hover {
+        margin-left: 400px;
+      }
     </style>
   </head>
   <body>
@@ -18,11 +24,11 @@
     <div>
       <div>这里是content1</div>
 
-      <div>这里是content2</div>
+      <div class="move">这里是content2</div>
     </div>
   </body>
 </html>
-<script defer>
+<script>
   const delay = (time) => {
     const now = Date.now();
     while (Date.now() <= now + time) {}
@@ -30,6 +36,6 @@
   window.onload = () => {
     setTimeout(() => {
       delay(3000);
-    }, 500);
+    }, 2000);
   };
 </script>
