@@ -61,5 +61,73 @@ var fib = function (n) {
 };
 
 // 322 零钱兑换
+// 可能代码没错，但是爆栈了，而且字典毫无用处
+// 这道题不适合递归
+var coinChange = function (coins, amount) {
+  if (amount <= 0) return 0;
 
-var coinChange = function (coins, amount) {};
+  // 字典缓存
+  const countMap = {};
+  for (let coin of coins) {
+    countMap[coin] = 1;
+  }
+
+  let dig = 1;
+
+  const getMinCoinCounts = (sum) => {
+    // 结束条件
+    if (countMap[sum] !== undefined) {
+      return countMap[sum];
+    }
+
+    // for循环，递减
+    let innerCount = Number.MAX_VALUE;
+    for (let coin of coins) {
+      dig++;
+      if (dig >= 1148576) {
+        throw new Error("out done");
+      }
+      if (coin > sum) continue;
+
+      console.log("calcute", sum, coin);
+      let leftCount = getMinCoinCounts(sum - coin);
+      // console.log("end is", sum, coin, leftCount);
+      if (leftCount === -1) continue;
+      innerCount = Math.min(leftCount + 1, innerCount);
+    }
+
+    if (innerCount === Number.MAX_VALUE) {
+      return -1;
+    }
+    countMap[sum] = innerCount;
+    return innerCount;
+  };
+
+  const count = getMinCoinCounts(amount);
+
+  return count;
+};
+
+const count = coinChange([186, 83], 6249);
+console.log("count is", count);
+
+// 70. 爬楼梯
+const stairsCollect = [0, 1, 2];
+var climbStairs = (n) => {
+  if (n === 0) return 0;
+
+  if (stairsCollect[n]) return stairsCollect[n];
+
+  const oneStepStart = (stairsCollect[n - 1] =
+    stairsCollect[n - 1] === undefined
+      ? climbStairs(n - 1)
+      : stairsCollect[n - 1]);
+  const twostepStart = (stairsCollect[n - 2] =
+    stairsCollect[n - 2] === undefined
+      ? climbStairs(n - 2)
+      : stairsCollect[n - 2]);
+  return oneStepStart + twostepStart;
+};
+
+// const steps = climbStairs(3);
+// console.log("steps is", steps);

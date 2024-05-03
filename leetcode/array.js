@@ -40,4 +40,4 @@ const removeElement = (nums, val) => {
 };
 
 const arr = [1, 1, 2, 4, 5, 2, 3, 3, 4];
-removeElement(arr, 2);
+// removeElement(arr, 2);
