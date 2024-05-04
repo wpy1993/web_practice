@@ -63,7 +63,7 @@ var fib = function (n) {
 // 322 零钱兑换
 // 可能代码没错，但是爆栈了，而且字典毫无用处
 // 这道题不适合递归
-var coinChange = function (coins, amount) {
+var coinChangeWrong = function (coins, amount) {
   if (amount <= 0) return 0;
 
   // 字典缓存
@@ -108,7 +108,54 @@ var coinChange = function (coins, amount) {
   return count;
 };
 
-const count = coinChange([186, 83], 6249);
+const log = (condition, ...args) => {
+  const oldLog = console.log;
+  if (condition < 4) {
+    oldLog(...args);
+  }
+};
+
+var coinChange = function (coins, amount) {
+  if (amount === 0) return 0;
+
+  const coinCountCollects = new Array(amount + 1).fill(Number.MAX_VALUE);
+
+  coinCountCollects[0] = 0;
+
+  const getCount = (cAmount) => {
+    let minCount = Number.MAX_VALUE;
+    for (let coin of coins) {
+      const leftAmount = cAmount - coin;
+      if (leftAmount < 0) {
+        continue;
+      }
+
+      if (coinCountCollects[leftAmount] !== Number.MAX_VALUE) {
+        minCount = Math.min(minCount, coinCountCollects[leftAmount] + 1);
+      }
+    }
+
+    if (minCount !== Number.MAX_VALUE) {
+      coinCountCollects[cAmount] = minCount;
+    }
+  };
+
+  for (let i = 0; i <= amount; i++) {
+    getCount(i);
+  }
+
+  const newArr = coinCountCollects.map((c) =>
+    c === Number.MAX_VALUE ? -2 : c
+  );
+
+  return coinCountCollects[amount] === Number.MAX_VALUE
+    ? -1
+    : coinCountCollects[amount];
+};
+
+const count = coinChange([474, 83, 404, 3], 264);
+// const count = coinChange([186, 419, 83, 408], 6249);
+// const count = coinChange([1, 2, 5], 11);
 console.log("count is", count);
 
 // 70. 爬楼梯

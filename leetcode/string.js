@@ -43,7 +43,7 @@ var reverseWords = function (s) {
 // reverseWords("hello wplay");
 
 // 3. 无重复字符的最长子串
-const lengthOfLongestSubstring = function (s) {
+const lengthOfLongestSubstring1 = function (s) {
   if (!s) return 0;
 
   const sMap = {};
@@ -76,5 +76,31 @@ const lengthOfLongestSubstring = function (s) {
   return maxLength;
 };
 
-const sss = "abccdcb";
+const lengthOfLongestSubstring = function (s) {
+  let p = 0;
+  let q = 0;
+  let maps = {};
+  let maxLens = 0;
+
+  for (; q < s.length; q++) {
+    let cur = s[q];
+
+    if (!maps[cur]) {
+      maps[cur] = 1;
+      maxLens = Math.max(maxLens, q - p + 1);
+      continue;
+    } else {
+      maps[cur]++;
+    }
+
+    // 如果遇到重复的，则遍历p,直到找到s[q],过程中剔除原来的maps count
+    while (maps[cur] > 1) {
+      maps[s[p]]--;
+      p++;
+    }
+  }
+
+  return maxLens;
+};
+const sss = "abcbde";
 console.log(lengthOfLongestSubstring(sss));
